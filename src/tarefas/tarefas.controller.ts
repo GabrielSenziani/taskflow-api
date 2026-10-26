@@ -1,10 +1,10 @@
-import { BadRequestException, Body, Controller, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common';
-import { LivrosService } from './livros.service.js';
-import { CriarLivroDto } from './dto/criar-livro.dto.js';
+import { Body, Controller, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { TarefasService as TarefasService } from './tarefas.service.js';
+import { CriarTarefaDto } from './dto/criar-tarefa.dto.js';
 
 @Controller('livros')
-export class LivrosController {
-    constructor(private readonly livrosService: LivrosService) {}
+export class TarefasController {
+    constructor(private readonly livrosService: TarefasService) {}
 
     @Get()
     listarTodosOsLivros() {
@@ -23,7 +23,7 @@ export class LivrosController {
     }
 
     @Post()
-    criarNovoLivro(@Body() dados: CriarLivroDto) {
+    criarNovoLivro(@Body() dados: CriarTarefaDto) {
         return this.livrosService.criarLivro(dados)
     }
     

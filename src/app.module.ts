@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
-import { LivrosModule } from './livros/livros.module.js';
+import { TarefasModule } from './tarefas/tarefas.module.js';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -22,7 +22,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         autoLoadEntities: true
       })
     }),
-    LivrosModule
+    TarefasModule
   ],
   controllers: [AppController],
   providers: [AppService],

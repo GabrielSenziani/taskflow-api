@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CriarLivroDto } from './dto/criar-livro.dto.js';
+import { CriarTarefaDto } from './dto/criar-tarefa.dto.js';
 
 @Injectable()
-export class LivrosService {
+export class TarefasService {
 
     private livros = [
         {id: 1, titulo: "Dom Casmurro"},
@@ -17,7 +17,7 @@ export class LivrosService {
      return this.livros
     }
 
-    public criarLivro(dadosDoLivro: CriarLivroDto) {
+    public criarLivro(dadosDoLivro: CriarTarefaDto) {
         const { titulo, autor } = dadosDoLivro
 
         const novoId = this.livros.length + 1

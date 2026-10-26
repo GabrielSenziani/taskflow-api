@@ -2,7 +2,7 @@ import { IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from "class-va
 import { Transform } from "class-transformer";
 import { trimString, trimOptionalString } from "../../utils/string.util.js";
 
-export class CriarLivroDto {
+export class CriarTarefaDto {
     @IsString({ message: "O titulo deve estar no formato de texto" })
     @IsNotEmpty({ message: "Campo vazio e só espaçamentos não são permitidos" })
     @MinLength(2, { message: "O titulo deve ter no minimo 2 caracteres" })

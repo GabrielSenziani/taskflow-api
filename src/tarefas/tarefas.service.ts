@@ -1,35 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CriarTarefaDto } from './dto/criar-tarefa.dto.js';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Tarefa } from './tarefa.entity.js';
 
 @Injectable()
 export class TarefasService {
+  constructor(
+    @InjectRepository(Tarefa)
+    private readonly tarefasRepository: Repository<Tarefa>,
+  ) {}
 
-    private livros = [
-        {id: 1, titulo: "Dom Casmurro"},
-        {id: 2, titulo: "O Hobbit"}
-    ]
+  public async buscaPorId(id: number) {
+    const buscaTarefaPorId = await this.tarefasRepository.findOneBy({ id });
 
-    public buscaPorId(id: number) {
-        return this.livros.find(livro => livro.id === id)
+    if (!buscaTarefaPorId) {
+      throw new NotFoundException('Tarefa não encontrada');
     }
 
-    public listarTodos() {
-     return this.livros
-    }
+    return buscaTarefaPorId;
+  }
 
-    public criarLivro(dadosDoLivro: CriarTarefaDto) {
-        const { titulo, autor } = dadosDoLivro
+  public async listarTodos() {
+    return this.tarefasRepository.find();
+  }
 
-        const novoId = this.livros.length + 1
+  public async criarTarefa(dados: CriarTarefaDto) {
+    const tarefa = this.tarefasRepository.create(dados);
 
-        const novoLivro = {
-            id: novoId,
-            titulo: titulo,
-            ...(autor && { autor: autor })
-        }
-
-        this.livros.push(novoLivro)
-
-        return novoLivro
-    }
+    return await this.tarefasRepository.save(tarefa);
+  }
 }

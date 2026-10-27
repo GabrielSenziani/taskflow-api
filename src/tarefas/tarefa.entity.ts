@@ -1,13 +1,29 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { StatusTarefa } from './status-tarefa.enum.js';
 
 @Entity()
 export class Tarefa {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ length: 50 })
-    titulo: string
+  @Column({ length: 50 })
+  titulo: string;
 
-    @Column({ nullable: true, length: 50 })
-    autor?: string | null
+  @Column({ nullable: true, type: 'text' })
+  descricao?: string;
+
+  @Column({
+    type: 'enum',
+    enum: StatusTarefa,
+    default: StatusTarefa.NAO_INICIADA,
+  })
+  status: StatusTarefa;
+
+  @CreateDateColumn()
+  criadaEm: Date;
 }

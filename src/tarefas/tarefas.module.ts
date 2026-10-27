@@ -7,6 +7,6 @@ import { Tarefa } from './tarefa.entity.js';
 @Module({
   imports: [TypeOrmModule.forFeature([Tarefa])],
   controllers: [TarefasController],
-  providers: [TarefasService]
+  providers: [TarefasService],
 })
 export class TarefasModule {}

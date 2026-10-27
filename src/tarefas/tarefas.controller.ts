@@ -1,30 +1,30 @@
-import { Body, Controller, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common';
-import { TarefasService as TarefasService } from './tarefas.service.js';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
+import { TarefasService } from './tarefas.service.js';
 import { CriarTarefaDto } from './dto/criar-tarefa.dto.js';
 
-@Controller('livros')
+@Controller('tarefas')
 export class TarefasController {
-    constructor(private readonly livrosService: TarefasService) {}
+  constructor(private readonly tarefasService: TarefasService) {}
 
-    @Get()
-    listarTodosOsLivros() {
-        return this.livrosService.listarTodos()
-    }
+  @Get()
+  listarTodasAsTarefas() {
+    return this.tarefasService.listarTodos();
+  }
 
-    @Get(":id")
-    buscaLivroPorId(@Param("id", ParseIntPipe) id: number) {
-        const livro = this.livrosService.buscaPorId(id)
+  @Get(':id')
+  buscaTarefaPorId(@Param('id', ParseIntPipe) id: number) {
+    return this.tarefasService.buscaPorId(id);
+  }
 
-        if(!livro) {
-            throw new NotFoundException("Livro não encontrado")
-        }
-
-        return livro
-    }
-
-    @Post()
-    criarNovoLivro(@Body() dados: CriarTarefaDto) {
-        return this.livrosService.criarLivro(dados)
-    }
-    
+  @Post()
+  criarNovaTarefa(@Body() dados: CriarTarefaDto) {
+    return this.tarefasService.criarTarefa(dados);
+  }
 }

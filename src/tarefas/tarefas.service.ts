@@ -3,6 +3,7 @@ import { CriarTarefaDto } from './dto/criar-tarefa.dto.js';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Tarefa } from './tarefa.entity.js';
+import { AtualizaTarefaDto } from './dto/atualizar-tarefa.dto.js';
 
 @Injectable()
 export class TarefasService {
@@ -29,5 +30,14 @@ export class TarefasService {
     const tarefa = this.tarefasRepository.create(dados);
 
     return await this.tarefasRepository.save(tarefa);
+  }
+
+  public async atualizarTarefa(id: number, dados: AtualizaTarefaDto) {
+    const tarefaExistente = await this.buscaPorId(id)
+
+    const tarefaMesclada = Object.assign(tarefaExistente, dados)
+    
+    return this.tarefasRepository.save(tarefaMesclada)
+
   }
 }

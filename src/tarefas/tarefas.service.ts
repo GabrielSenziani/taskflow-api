@@ -38,6 +38,11 @@ export class TarefasService {
     const tarefaMesclada = Object.assign(tarefaExistente, dados)
     
     return this.tarefasRepository.save(tarefaMesclada)
+  }
 
+  public async excluirTarefa(id: number) {
+    const tarefa = await this.buscaPorId(id)
+
+    return this.tarefasRepository.softRemove(tarefa)
   }
 }

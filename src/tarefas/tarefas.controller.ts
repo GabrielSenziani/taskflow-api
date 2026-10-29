@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -33,5 +36,11 @@ export class TarefasController {
   @Patch(':id')
   atualizarTarefa(@Param('id', ParseIntPipe) id: number, @Body() dados: AtualizaTarefaDto) {
    return this.tarefasService.atualizarTarefa(id, dados)
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT) 
+  excluirTarefa(@Param('id', ParseIntPipe) id: number) {
+    return this.tarefasService.excluirTarefa(id)
   }
 }

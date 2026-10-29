@@ -1,6 +1,7 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -26,4 +27,7 @@ export class Tarefa {
 
   @CreateDateColumn()
   criadaEm: Date;
+
+  @DeleteDateColumn({ nullable: true })
+  excluidaEm?: Date | null;
 }
